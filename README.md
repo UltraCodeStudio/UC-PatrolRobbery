@@ -24,4 +24,4 @@
 ## [UltraCode Youtube](https://www.youtube.com/watch?v=ltW0_WZR2VU)
 
 ### If support is needed, join my Discord and open a ticket, and I'll be sure to help you out
-## [UltraCode Discord]([https://discord.gg/9pCDHmjYwd](https://discord.gg/xQhZ2AqMax))
+## [UltraCode Discord](https://discord.gg/9pCDHmjYwd)
