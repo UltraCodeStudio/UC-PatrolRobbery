@@ -1,8 +1,9 @@
 function AddNetworkPropTarget(entity, options)
-    if Config.Integrations.target ~= "ox_target" then
+    if Config.Integrations.target == "ox_target" then
         exports.ox_target:addEntity(entity, options)
         return
     end
+    print("[ERROR] No target integration found.")
     
 end
 
@@ -17,7 +18,7 @@ function Notif(src, msg)
         })
         return
     end
-   
+    print("[ERROR] No Notify integration found.")
 end
 function RandomMiniGame()
     local minigames = {'qte', 'circle', 'memory', 'math', 'reaction'}
@@ -26,7 +27,7 @@ end
 
 function ProgressBar(label, duration, options)
     options = options or {}
-    if Config.Integrations.progressbar ~= "ox_lib" then
+    if Config.Integrations.progressbar == "ox_lib" then
         return lib.progressBar({
             duration = duration or 3000,
             label = label or 'Working...',
@@ -41,6 +42,7 @@ function ProgressBar(label, duration, options)
             prop = options.prop
         })
     end
+    print("[ERROR] No Progress Bar integration found.")
     
 end
 

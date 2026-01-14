@@ -1,12 +1,13 @@
 function AddItem(item, amount, src)
-    if Config.Integrations.inventory ~= "ox_inventory" then
+    if Config.Integrations.inventory == "ox_inventory" then
         exports.ox_inventory:AddItem(src, item, amount)
         return
     end
+    print("[ERROR] No Inventory integration found.")
 end
 
 function NotifServer(src, msg)
-    if Config.Integrations.notify ~= "ox_lib" then
+    if Config.Integrations.notify == "ox_lib" then
         TriggerClientEvent('ox_lib:notify', src, {
             type = 'success',
             title = 'Construction Robbery',
@@ -16,6 +17,7 @@ function NotifServer(src, msg)
         })
         return
     end
+    print("[ERROR] No Notify integration found.")
     
 end
 
