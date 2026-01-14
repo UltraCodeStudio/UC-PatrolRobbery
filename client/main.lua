@@ -46,40 +46,33 @@ local function DrawWaypointMarker(p, label)
 end
 
 local function EnsureDebugThread()
-    if GuardDebug._thread then return end
-    GuardDebug._thread = true
-
     Citizen.CreateThread(function()
         while true do
-            if not Config.Debug then
-                Citizen.Wait(500)
-            else
-                for netId, info in pairs(GuardDebug) do
-                    if type(info) == "table" and info.enabled and info.path then
+            for netId, info in pairs(GuardDebug) do
+                if type(info) == "table" and info.enabled and info.path then
+                    
+                    for i, c in ipairs(info.path) do
+                        local p = v3(c.x, c.y, c.z)
+                        DrawWaypointMarker(p, ("G%s #%d"):format(netId, i))
+
                         
-                        for i, c in ipairs(info.path) do
-                            local p = v3(c.x, c.y, c.z)
-                            DrawWaypointMarker(p, ("G%s #%d"):format(netId, i))
-
-                            
-                            if i < #info.path then
-                                local n = info.path[i+1]
-                                DrawLine(p.x, p.y, p.z + 0.3, n.x, n.y, n.z + 0.3, 255, 255, 0, 160)
-                            end
-                        end
-
-                       
-                        if info.guard and DoesEntityExist(info.guard) and info.target then
-                            local gp = GetEntityCoords(info.guard)
-                            DrawLine(gp.x, gp.y, gp.z + 0.9, info.target.x, info.target.y, info.target.z + 0.3, 0, 255, 255, 200)
-                            DrawPedRadiusSphere(info.guard, 30.0)
-                            DrawText3D(gp.x, gp.y, gp.z + 1.1, ("Guard %s wp %s"):format(netId, tostring(info.idx)))
+                        if i < #info.path then
+                            local n = info.path[i+1]
+                            DrawLine(p.x, p.y, p.z + 0.3, n.x, n.y, n.z + 0.3, 255, 255, 0, 160)
                         end
                     end
-                end
 
-                Citizen.Wait(0)
+                    
+                    if info.guard and DoesEntityExist(info.guard) and info.target then
+                        local gp = GetEntityCoords(info.guard)
+                        DrawLine(gp.x, gp.y, gp.z + 0.9, info.target.x, info.target.y, info.target.z + 0.3, 0, 255, 255, 200)
+                        DrawPedRadiusSphere(info.guard, 30.0)
+                        DrawText3D(gp.x, gp.y, gp.z + 1.1, ("Guard %s wp %s"):format(netId, tostring(info.idx)))
+                    end
+                end
             end
+
+            Citizen.Wait(0)
         end
     end)
 end
