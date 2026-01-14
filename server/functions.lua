@@ -1,5 +1,9 @@
 function AddItem(item, amount, src)
     if Config.Integrations.inventory == "ox_inventory" then
+        if not exports.ox_inventory:CanCarryItem(src, item, 1) then
+            NotifServer(src, "You cannot carry any more "..item..".")
+            return
+        end
         exports.ox_inventory:AddItem(src, item, amount)
         return
     end
