@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 description 'Patrol Robbery Script for FiveM'
-version '1.0.0'
+version '1.1'
 author 'Ultra Code'
 
 shared_scripts {
