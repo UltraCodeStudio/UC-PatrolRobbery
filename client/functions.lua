@@ -1,7 +1,24 @@
 function AddNetworkPropTarget(entity, options)
-    exports.ox_target:addEntity(entity, options)
+    if Config.Integrations.target ~= "ox_target" then
+        exports.ox_target:addEntity(entity, options)
+        return
+    end
+    
 end
 
+function Notif(src, msg)
+    if Config.Integrations.notify == "ox_lib" then
+        TriggerEvent('ox_lib:notify', {
+        type = 'success',
+        title = 'Construction Robbery',
+        description = msg,
+        duration = 5000,
+        position = 'top-right'
+        })
+        return
+    end
+   
+end
 function RandomMiniGame()
     local minigames = {'qte', 'circle', 'memory', 'math', 'reaction'}
     return minigames[math.random(1, #minigames)]
@@ -9,30 +26,24 @@ end
 
 function ProgressBar(label, duration, options)
     options = options or {}
-    return lib.progressBar({
-        duration = duration or 3000,
-        label = label or 'Working...',
-        useWhileDead = options.useWhileDead or false,
-        canCancel = options.canCancel ~= false,
-        disable = options.disable or {
-            move = true,
-            car = true,
-            combat = true
-        },
-        anim = options.anim,
-        prop = options.prop
-    })
+    if Config.Integrations.progressbar ~= "ox_lib" then
+        return lib.progressBar({
+            duration = duration or 3000,
+            label = label or 'Working...',
+            useWhileDead = options.useWhileDead or false,
+            canCancel = options.canCancel ~= false,
+            disable = options.disable or {
+                move = true,
+                car = true,
+                combat = true
+            },
+            anim = options.anim,
+            prop = options.prop
+        })
+    end
+    
 end
 
-function Notif(src, msg)
-    TriggerEvent('ox_lib:notify', {
-        type = 'success',
-        title = 'Construction Robbery',
-        description = msg,
-        duration = 5000,
-        position = 'top-right'
-    })
-end
 
 function RunMiniGame(game)
     local games = Config.MiniGames

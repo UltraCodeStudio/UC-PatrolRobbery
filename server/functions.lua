@@ -1,16 +1,22 @@
 function AddItem(item, amount, src)
-    exports.ox_inventory:AddItem(src, item, amount)
+    if Config.Integrations.inventory ~= "ox_inventory" then
+        exports.ox_inventory:AddItem(src, item, amount)
+        return
+    end
 end
 
 function NotifServer(src, msg)
+    if Config.Integrations.notify ~= "ox_lib" then
+        TriggerClientEvent('ox_lib:notify', src, {
+            type = 'success',
+            title = 'Construction Robbery',
+            description = msg,
+            duration = 5000,
+            position = 'top-right'
+        })
+        return
+    end
     
-    TriggerClientEvent('ox_lib:notify', src, {
-        type = 'success',
-        title = 'Construction Robbery',
-        description = msg,
-        duration = 5000,
-        position = 'top-right'
-    })
 end
 
 function CallPolice(coords)

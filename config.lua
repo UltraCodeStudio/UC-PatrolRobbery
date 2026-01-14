@@ -2,6 +2,12 @@ Config = {}
 
 Config.Debug = false
 
+Config.Integrations = {
+    target = "ox_target",
+    progressbar = "ox_lib",
+    notify = "ox_lib",
+    inventory = "ox_inventory",
+}
 --Add new minigames here
 Config.MiniGames = {
     skill_multi = function()
@@ -24,7 +30,7 @@ Config.GuardVoiceLines = {
     "GENERIC_CURSE_HIGH",
     "GENERIC_INSULT_HIGH",
     "GENERIC_SHOCKED_HIGH",
-     "GENERIC_HI",
+    "GENERIC_HI",
     "GENERIC_HOWS_IT_GOING",
     "GENERIC_HELLO",
 }
