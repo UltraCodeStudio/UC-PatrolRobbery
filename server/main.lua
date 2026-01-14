@@ -166,15 +166,15 @@ local function ChooseClosestControllerForGuard(guardIndex)
         return
     end
 
-    local gx, gy, gz = table.unpack(GetEntityCoords(guardEnt))
+    local g = GetEntityCoords(guardEnt)
 
    
     local currentDist = 999999.0
     if g.controller then
         local cPed = GetPlayerPed(g.controller)
         if cPed and cPed ~= 0 and DoesEntityExist(cPed) then
-            local cx, cy, cz = table.unpack(GetEntityCoords(cPed))
-            currentDist = dist(cx, cy, cz, gx, gy, gz)
+            local c = GetEntityCoords(cPed)
+            currentDist = #(c - g)
             if currentDist > CONTROL_RADIUS then
                 currentDist = 999999.0
             end
