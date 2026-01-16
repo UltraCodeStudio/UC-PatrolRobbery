@@ -106,12 +106,6 @@ lib.callback.register('UC-PatrolRobbery:getSpawnedLootables', function(source)
     return lootablesData
 end)
 
-
-local function dist(ax, ay, az, bx, by, bz)
-    local dx, dy, dz = ax - bx, ay - by, az - bz
-    return math.sqrt(dx*dx + dy*dy + dz*dz)
-end
-
 local function CreateGuardPed(pedType, modelName, coords)
     local modelHash = joaat(modelName)
     local ped = CreatePed(pedType, modelHash, coords.x, coords.y, coords.z, coords.w, true, true)
@@ -190,8 +184,8 @@ local function ChooseClosestControllerForGuard(guardIndex)
         local src = tonumber(srcStr)
         local ped = GetPlayerPed(src)
         if ped and ped ~= 0 and DoesEntityExist(ped) then
-            local px, py, pz = table.unpack(GetEntityCoords(ped))
-            local d = dist(px, py, pz, gx, gy, gz)
+            local p = GetEntityCoords(ped)
+            local d = #(p - g)
 
             if d <= CONTROL_RADIUS and d < bestDist then
                 bestDist = d
