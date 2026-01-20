@@ -84,12 +84,13 @@ AddEventHandler("UC-PatrolRobbery:guardSpawned", function(netId)
     if Config.Debug then
         print("Guard spawned with netId:", netId)
     end
+    SetBlockingOfNonTemporaryEvents(ped, true)
+    if Config.KillableGuards then return end
     local ped = NetworkGetEntityFromNetworkId(netId)
     SetEntityInvincible(ped, true)
     SetEntityProofs(ped, true,true,true,true,true,true,true,true)
     SetPedCanRagdoll(ped, false)
     SetPedDiesWhenInjured(ped, false)
-    SetBlockingOfNonTemporaryEvents(ped, true)
     
 end)
 
@@ -221,7 +222,12 @@ local function EngagePlayerLoop(netId, guard, coord, playerPed)
         end
 
         
-        AimFlashlightAtPlayer(guard, playerPed)
+        if Config.AttackPlayers then
+            TaskCombatPed(guard, playerPed,0,16)
+        else
+            AimFlashlightAtPlayer(guard, playerPed)
+        end
+        
         Citizen.Wait(1000)
 
         local check, playerId, newPlayerPed = CheckArea(guard, 30.0)
@@ -231,7 +237,9 @@ local function EngagePlayerLoop(netId, guard, coord, playerPed)
         end
         if not check then
             MoveTo(guard, coord)
-            StopFlashlight(guard)
+            if Config.AttackPlayers then
+                StopFlashlight(guard)
+            end
             Citizen.Wait(1000)
             break
         end

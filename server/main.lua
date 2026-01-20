@@ -112,6 +112,10 @@ local function CreateGuardPed(pedType, modelName, coords)
     return ped
 end
 
+local function DeleteGuardPed(ped)
+    DeleteEntity(ped)
+end
+
 local function SpawnGuards()
     Guards = {}
 
@@ -121,7 +125,7 @@ local function SpawnGuards()
             Wait(100) -- Give some time for the ped to spawn properly
             if ped ~= 0 and DoesEntityExist(ped) then
                 local netId = NetworkGetNetworkIdFromEntity(ped)
-                Guards[#Guards + 1] = { netId = netId, entity = ped, controller = nil, path = guardData.path, alertCooldown = 0 }
+                Guards[#Guards + 1] = { netId = netId, entity = ped, controller = nil, path = guardData.path, alertCooldown = 0, model = guardData.model, coords = guardData.coords }
 
                 
                 TriggerClientEvent("UC-PatrolRobbery:guardSpawned", -1, netId)
@@ -217,6 +221,41 @@ local function ChooseControllers()
     end
 end
 
+
+
+local function RespawnDeadGuards()
+    for i = 1, #Guards do
+        local g = Guards[i]
+        if GetEntityHealth(g.entity) <= 0 then 
+            DeleteGuardPed(g.entity)
+            local ped = CreateGuardPed(26, g.model, g.coords)
+            Wait(100) -- Give some time for the ped to spawn properly
+            if ped ~= 0 and DoesEntityExist(ped) then
+                local netId = NetworkGetNetworkIdFromEntity(ped)
+                g.netId = netId
+                g.entity = ped
+                g.controller = nil
+                Wait(100)
+                TriggerClientEvent("UC-PatrolRobbery:guardSpawned", -1, netId)
+                ChooseClosestControllerForGuard(i)
+            else
+                print("[UC-PatrolRobbery] Failed to spawn guard ped")
+            end
+            
+        end
+    end
+end
+
+CreateThread(function()
+    Wait(5000)
+    while true do
+        Wait(Config.RespawnTime * 60 * 1000)
+        if #Guards > 0 then
+            print("respawning")
+            RespawnDeadGuards()
+        end
+    end
+end)
 
 CreateThread(function()
     Wait(1000)

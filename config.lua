@@ -23,6 +23,9 @@ Config.MiniGames = {
 
 Config.PoliceAlertCooldown = 5 -- in minutes
 
+Config.KillableGuards = true
+Config.AttackPlayers = true
+Config.RespawnTime = 5 -- in minutes
 
 --Find more here https://docs.fivem.net/docs/game-references/speeches/
 Config.GuardVoiceLines = {
