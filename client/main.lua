@@ -224,6 +224,8 @@ local function EngagePlayerLoop(netId, guard, coord, playerPed)
         
         if Config.AttackPlayers then
             TaskCombatPed(guard, playerPed,0,16)
+            GiveWeaponToPed(guard, Config.GuardWeapon, 0, false, true)
+            SetCurrentPedWeapon(guard, Config.GuardWeapon, true)
         else
             AimFlashlightAtPlayer(guard, playerPed)
         end
@@ -243,8 +245,6 @@ local function EngagePlayerLoop(netId, guard, coord, playerPed)
             Citizen.Wait(1000)
             break
         end
-
-        
         playerPed = newPlayerPed
     end
 end
