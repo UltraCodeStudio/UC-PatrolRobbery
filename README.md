@@ -15,7 +15,7 @@
 - Customisable points for Selling materials
   - Nicely animated for better immersion
 
-- Supports QBOX
+- Supports QBOX and ESX
 - Easily adaptable to your own framework
 
 ---

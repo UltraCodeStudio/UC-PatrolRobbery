@@ -1,0 +1,9 @@
+{
+  "name_robbery": "Napad na budowę",
+  "cooldown_robbery": "Jest pusty, poczekaj %s sekund.",
+  "work": "Pracowanie...",
+  "loot_name": "Łup %s",
+  "loot": "Przeszukiwanie %s ...",
+  "fail_loot": "Nie udało ci się ukraść %s.",
+  "not_enought_space": "Nie masz już miejsca w ekwipunku %s."
+}

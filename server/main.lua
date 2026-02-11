@@ -56,7 +56,7 @@ RegisterNetEvent('UC-PatrolRobbery:lootLootable', function(netID)
                 GiveRewards(l, src)
             else
                 
-                NotifServer(src, "Lootable is on cooldown, please wait "..math.floor(l.cooldown / 1000).." seconds.")
+                NotifServer(src, locale('cooldown_robbery', math.floor(l.cooldown / 1000)))
             end
             break
         end
