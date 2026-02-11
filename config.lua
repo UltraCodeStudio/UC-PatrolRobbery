@@ -5,7 +5,7 @@ Config.Debug = false
 Config.Integrations = {
     target = "ox_target",
     progressbar = "ox_lib",
-    notify = "esx", --esx, ox_lib
+    notify = "ox_lib", --esx, ox_lib
     inventory = "ox_inventory",
 }
 --Add new minigames here
