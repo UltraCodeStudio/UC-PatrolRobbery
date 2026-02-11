@@ -1,3 +1,5 @@
+lib.locale()
+
 function AddNetworkPropTarget(entity, options)
     if Config.Integrations.target == "ox_target" then
         exports.ox_target:addEntity(entity, options)
@@ -11,14 +13,16 @@ function Notif(src, msg)
     if Config.Integrations.notify == "ox_lib" then
         TriggerEvent('ox_lib:notify', {
         type = 'success',
-        title = 'Construction Robbery',
+        title = locale('name_robbery'),
         description = msg,
         duration = 5000,
         position = 'top-right'
         })
-        return
+    elseif Config.Integrations.notify == 'esx' then
+        exports["esx_notify"]:Notify("success", 3000, msg, locale('name_robbery')) 
+    else
+        print("[ERROR] No Notify integration found.")
     end
-    print("[ERROR] No Notify integration found.")
 end
 function RandomMiniGame()
     local minigames = {'qte', 'circle', 'memory', 'math', 'reaction'}
@@ -30,7 +34,7 @@ function ProgressBar(label, duration, options)
     if Config.Integrations.progressbar == "ox_lib" then
         return lib.progressBar({
             duration = duration or 3000,
-            label = label or 'Working...',
+            label = label or locale('work'),
             useWhileDead = options.useWhileDead or false,
             canCancel = options.canCancel ~= false,
             disable = options.disable or {

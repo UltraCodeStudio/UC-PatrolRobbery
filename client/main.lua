@@ -321,11 +321,11 @@ Citizen.CreateThread(function()
                 {
                      name = 'loot_construction_safe',
                      icon = 'fa-solid fa-box-open',
-                     label = 'Loot '.. lootData.name,
+                     label = locale('loot_name', lootData.name) ,
                      distance = 3.0,
                      onSelect = function()
                         
-                        local success = ProgressBar('Looting '.. lootData.name ..'...', 5000, {
+                        local success = ProgressBar(locale('loot',lootData.name), 5000, {
                             
                             anim = {
                                 dict = lootData.lootAnimation.dict,
@@ -336,7 +336,7 @@ Citizen.CreateThread(function()
                             local success = RunMiniGame(lootData.minigame)
                             
                             if not success then
-                                Notif(PlayerId(), 'You failed to loot the '.. lootData.name ..'.')
+                                Notif(PlayerId(), locale('fail_loot',lootData.name))
                                 return
                             end
                             TriggerServerEvent('UC-PatrolRobbery:lootLootable', lootData.netId)

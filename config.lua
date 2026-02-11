@@ -5,7 +5,7 @@ Config.Debug = false
 Config.Integrations = {
     target = "ox_target",
     progressbar = "ox_lib",
-    notify = "ox_lib",
+    notify = "esx", --esx, ox_lib
     inventory = "ox_inventory",
 }
 --Add new minigames here
@@ -70,7 +70,7 @@ Config.Locations = {
             },
         },
         lootables = {
-            ["Safe"] = {
+            ["Safe"] = { 
                 model = "xm3_prop_xm3_safe_01a", --Find here https://forge.plebmasters.de/
                 lootAnimation = {
                     dict = 'mini@safe_cracking',

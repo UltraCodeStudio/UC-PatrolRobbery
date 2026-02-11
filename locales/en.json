@@ -1,0 +1,9 @@
+{
+  "name_robbery": "Construction Robbery",
+  "cooldown_robbery": "Lootable is on cooldown, please wait %s seconds.",
+  "work": "Working...",
+  "loot_name": "Loot %s",
+  "loot": "Looting %s ...",
+  "fail_loot": "You failed to loot the %s.",
+  "not_enought_space": "You cannot carry any more %s."
+}
